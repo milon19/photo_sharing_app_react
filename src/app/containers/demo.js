@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import allActions from "../_redux/actions";
 
 const Counter = () => {
-    const counter = useSelector((state) => state.demoReducer);
+    const counter = useSelector((state) => state.demoReducer.value);
     const dispatch = useDispatch();
 
     const handleIncrement = () => {
         console.log("🚀 ~ file: demo.js ~ line 7 ~ Counter ~ counter", counter);
 
-        dispatch(allActions.demoActions.increament());
+        dispatch(allActions.demoActions.increament(counter + 1));
     };
 
     const handleDecrement = () => {
         console.log("🚀 ~ file: demo.js ~ line 7 ~ Counter ~ counter", counter);
 
-        dispatch(allActions.demoActions.decrement());
+        dispatch(allActions.demoActions.decrement(counter - 1));
     };
 
     return (
