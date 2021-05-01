@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "../Layout";
 import Login from "../../components/forms/Login";
-// import Register from "../../components/forms/register";
+import Registration from "../../components/forms/Registration";
 // import { useDispatch, useSelector } from "react-redux";
 // import allActions from "../../actions";
 // import ForgetPassword from "../../components/forms/forget-password";
@@ -39,15 +39,9 @@ function Auth(props) {
     case "login":
       form = <Login />;
       break;
-    // case "register":
-    //   form = (
-    //     <Register
-    //       message={message}
-    //       serverErrors={errors}
-    //       onSubmit={(e) => onSubmit("registerForm", e)}
-    //     />
-    //   );
-    //   break;
+    case "register":
+      form = <Registration />;
+      break;
     // case "forgot-password":
     //   form = (
     //     <ForgetPassword

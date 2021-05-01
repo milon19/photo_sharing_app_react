@@ -37,13 +37,13 @@ const NavBar = ({ user, header }) => {
 
           <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"#"}>
+              <Link className="nav-link" to={"/auth/login/"}>
                 Login
               </Link>
             </li>
             <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"#"}>
-                Signup
+              <Link className="nav-link" to={"/auth/register/"}>
+                Register
               </Link>
             </li>
             <li class="nav-item text-nowrap">
@@ -53,7 +53,7 @@ const NavBar = ({ user, header }) => {
             </li>
             <li class="nav-item text-nowrap">
               <Link className="nav-link" to={"#"}>
-                Signout
+                Logout
               </Link>
             </li>
           </ul>
