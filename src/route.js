@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./app/containers/Home";
 import Auth from "./app/containers/Auth";
+import UserProfile from "./app/containers/UserProfile";
 
 const RouteApp = () => {
   return (
@@ -10,6 +11,7 @@ const RouteApp = () => {
       <Switch>
         <Route path="/auth/:formType/:id?" component={Auth} exact />
         <Route path="/" component={Home} exact />
+        <Route path="/profile/:type?" component={UserProfile} exact />
       </Switch>
     </Router>
   );
