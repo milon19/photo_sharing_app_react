@@ -60,6 +60,7 @@ const authReducer = (state = initialState, action) =>
         break;
       case LOGOUT_USER:
         draft.user = null;
+        draft.message = "";
         auth.clearAppStorage();
         break;
       case SET_PUBLIC_USER_INFO:
