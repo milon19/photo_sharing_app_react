@@ -50,7 +50,13 @@ function Auth(props) {
       );
       break;
     case "register":
-      form = <Registration />;
+      form = (
+        <Registration
+          message={message}
+          serverErrors={errors}
+          onSubmit={(e) => onSubmit("registerForm", e)}
+        />
+      );
       break;
     default:
       form = "404";

@@ -33,7 +33,6 @@ const Login = (props) => {
         <input
           type="password"
           id="password-input"
-          name="password"
           className="form-control"
           placeholder="Password"
           {...register("password", {
