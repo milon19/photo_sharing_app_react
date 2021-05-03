@@ -1,7 +1,7 @@
-import * as demoActions from "./demoActions";
+import * as authActions from "./authActions";
 
 const allActions = {
-    demoActions,
+  authActions,
 };
 
 export default allActions;

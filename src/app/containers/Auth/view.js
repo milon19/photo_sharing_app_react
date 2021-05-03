@@ -1,65 +1,57 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Layout from "../Layout";
 import Login from "../../components/forms/Login";
 import Registration from "../../components/forms/Registration";
-// import { useDispatch, useSelector } from "react-redux";
-// import allActions from "../../actions";
-// import ForgetPassword from "../../components/forms/forget-password";
-// import ResetPassword from "../../components/forms/reset-password";
+import allActions from "../../_redux/actions";
 
 Auth.propTypes = {};
 
 function Auth(props) {
-  // const message = useSelector((state) => state.authReducer.message);
-  // const errors = useSelector((state) => state.authReducer.errors);
-  // const redirect = useSelector((state) => state.authReducer.redirect);
+  const message = useSelector((state) => state.authReducer.message);
+  const errors = useSelector((state) => state.authReducer.errors);
+  const redirect = useSelector((state) => state.authReducer.redirect);
 
-  // const { submitAuthForm } = allActions.authActions;
-  // const dispatch = useDispatch();
+  const { submitAuthForm } = allActions.authActions;
+  const dispatch = useDispatch();
   const formType = props.match.params.formType;
 
-  // useEffect(() => {
-  //   if (redirect) {
-  //     props.history.push("/profile/");
-  //     dispatch(allActions.authActions.redirectUser(false));
-  //   }
-  // }, [redirect]);
+  useEffect(() => {
+    const redirectUserToProfile = () => {
+      props.history.push("/profile/");
+      dispatch(allActions.authActions.redirectUser(false));
+    };
 
-  // const onSubmit = (formType, values) => {
-  //   const value = {
-  //     ...values,
-  //     formType: formType,
-  //   };
-  //   dispatch(submitAuthForm(value));
-  // };
+    if (redirect) {
+      redirectUserToProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [redirect]);
+
+  const onSubmit = (formType, values) => {
+    const value = {
+      ...values,
+      formType: formType,
+    };
+    dispatch(submitAuthForm(value));
+  };
 
   let form;
 
   switch (formType) {
     case "login":
-      form = <Login />;
+      form = (
+        <Login
+          message={message}
+          serverErrors={errors}
+          onSubmit={(e) => onSubmit("loginForm", e)}
+        />
+      );
       break;
     case "register":
       form = <Registration />;
       break;
-    // case "forgot-password":
-    //   form = (
-    //     <ForgetPassword
-    //       message={message}
-    //       serverErrors={errors}
-    //       onSubmit={(e) => onSubmit("forgotPasswordForm", e)}
-    //     />
-    //   );
-    //   break;
-    // case "reset-password":
-    //   form = (
-    //     <ResetPassword
-    //       message={message}
-    //       serverErrors={errors}
-    //       onSubmit={(e) => onSubmit("resetPasswordForm", e)}
-    //     />
-    //   );
-    //   break;
     default:
       form = "404";
       props.history.push("/auth/login/");
