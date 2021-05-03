@@ -18,7 +18,7 @@ function* submitAuthForm({ payload }) {
       };
       break;
     case "registerForm":
-      url = `/users/registration/`;
+      url = `/registration/`;
       body = {
         username: payload.username,
         email: payload.email,
@@ -60,7 +60,7 @@ function* submitAuthForm({ payload }) {
     if (payload.formType === "registerForm") {
       yield put(
         allActions.authActions.setMessage(
-          "An e-mail has been sent. Please use that to reset your password."
+          "Registration Successful. Login Here."
         )
       );
       yield put(allActions.authActions.redirectUser(true));
