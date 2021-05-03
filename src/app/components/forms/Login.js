@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Login = (props) => {
-  const { serverErrors, onSubmit } = props;
+  const { serverErrors, message, onSubmit } = props;
   const {
     register,
     formState: { errors },
@@ -13,6 +13,7 @@ const Login = (props) => {
     <div className="wrap-login">
       <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="h3 mb-3 font-weight-normal">Please login</h1>
+        <h3 className="form-message">{message}</h3>
         <input
           id="email-input"
           className="form-control"
