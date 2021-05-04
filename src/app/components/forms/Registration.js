@@ -1,53 +1,95 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-const Registration = () => {
+const Registration = (props) => {
+  const { serverErrors, onSubmit } = props;
+  const {
+    register,
+    formState: { errors },
+    getValues,
+    handleSubmit,
+  } = useForm();
   return (
     <div className="wrap-login">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
         <input
-          type="email"
-          id="email"
+          id="email-input"
           className="form-control"
-          placeholder="Email address"
-          required
-          autofocus
+          placeholder="Enter your email address"
+          {...register("email", {
+            required: "Email is Required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
         />
+
+        {errors.email && (
+          <ul className="error-message">{errors.email.message}</ul>
+        )}
         <input
           type="text"
-          id="username"
+          id="username-input"
           class="form-control"
           placeholder="Username"
-          required
-          autofocus
+          {...register("username", {
+            required: true,
+          })}
         />
+        {errors.email && (
+          <ul className="error-message">Username is required.</ul>
+        )}
         <input
           type="password"
-          id="password1"
+          id="password"
           className="form-control"
           placeholder="Password"
-          required
+          {...register("password", {
+            required: "You must specify a password",
+            minLength: {
+              value: 8,
+              message: "Password must have at least 8 characters",
+            },
+          })}
         />
+        {errors.password && (
+          <ul className="error-message">{errors.password.message}</ul>
+        )}
         <input
           type="password"
-          id="password2"
+          id="confirmPassword-input"
+          name="confirmPassword"
           className="form-control"
           placeholder="Verify Password"
-          required
+          {...register("confirmPassword", {
+            required: "Please confirm password!",
+            validate: {
+              matchesPreviousPassword: (value) => {
+                const { password } = getValues();
+                return password === value || "Passwords should match!";
+              },
+            },
+          })}
         />
-        <div className="checkbox mb-3 mt-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
-        <button className="btn btn-lg btn-primary btn-block" type="submit">
+        {errors.confirmPassword && (
+          <ul className="error-message">{errors.confirmPassword.message}</ul>
+        )}
+
+        <button className="btn btn-lg btn-primary btn-block mt-3" type="submit">
           Register
         </button>
-        <div>
+        <div
+          style={{
+            display: serverErrors?.length > 0 ? "block" : "none",
+          }}
+        >
           <ul className="error-message">
-            <li>Something wrong.</li>
-            <li>Something wrong.</li>
+            {serverErrors?.map((err, index) => (
+              <li key={index}>{err}</li>
+            ))}
           </ul>
         </div>
         <div className="button-container">

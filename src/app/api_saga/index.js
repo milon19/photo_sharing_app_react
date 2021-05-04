@@ -4,5 +4,5 @@ import { authWatcher } from "./authSaga";
 // import { episodeWatcher } from "./episodeSaga";
 
 export default function* rootSaga() {
-    yield all([authWatcher()]);
+  yield all([authWatcher()]);
 }

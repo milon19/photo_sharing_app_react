@@ -262,3 +262,12 @@ error-message > li {
   font-size: 14px;
   color: red;
 }
+
+.form-message {
+  line-height: 1.66;
+  font-weight: 400;
+  color: #6dabe4;
+  font-family: Poppins;
+  font-size: 14px;
+  max-width: 300px;
+}

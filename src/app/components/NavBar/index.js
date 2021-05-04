@@ -1,7 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import auth from "../../settings/auth";
+import allActions from "../../_redux/actions";
 
 const NavBar = ({ user, header }) => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(allActions.authActions.logoutUser());
+  };
+
   return (
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -36,26 +46,33 @@ const NavBar = ({ user, header }) => {
           </ul>
 
           <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"/auth/login/"}>
-                Login
-              </Link>
-            </li>
-            <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"/auth/register/"}>
-                Register
-              </Link>
-            </li>
-            <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"#"}>
-                Profile
-              </Link>
-            </li>
-            <li class="nav-item text-nowrap">
-              <Link className="nav-link" to={"#"}>
-                Logout
-              </Link>
-            </li>
+            {auth.getToken() === null ? (
+              <>
+                <li class="nav-item text-nowrap">
+                  <Link className="nav-link" to={"/auth/login/"}>
+                    Login
+                  </Link>
+                </li>
+                <li class="nav-item text-nowrap">
+                  <Link className="nav-link" to={"/auth/register/"}>
+                    Register
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li class="nav-item text-nowrap">
+                  <Link className="nav-link" to={"/profile/"}>
+                    Profile
+                  </Link>
+                </li>
+                <li class="nav-item text-nowrap">
+                  <Link className="nav-link" onClick={handleLogout}>
+                    Logout
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>

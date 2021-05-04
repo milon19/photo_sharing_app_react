@@ -1,2 +1,19 @@
 export const DEMO_INCREMENT = "DEMO_INCREMENT";
 export const DEMO_DECREMENT = "DEMO_DECREMENT";
+
+/* auth constants */
+export const SUBMIT_AUTH = "SUBMIT_AUTH";
+export const SET_USER = "SET_USER";
+export const CHANGE_AUTH_FORM = "CHANGE_AUTH_FORM";
+export const RESET_AUTH_FORM = "RESET_AUTH_FORM";
+export const SET_FORM_ERRORS = "SET_FORM_ERRORS";
+export const RESET_AUTH_FORM_ERRORS = "RESET_AUTH_FORM_ERRORS";
+export const SET_MESSAGE = "SET_MESSAGE";
+export const RESET_MESSAGE = "RESET_MESSAGE";
+export const REDIRECT_AUTH = "REDIRECT_AUTH";
+export const LOGOUT_USER = "LOGOUT_USER";
+export const SET_PUBLIC_USER_INFO = "SET_PUBLIC_USER_INFO";
+export const SET_PROFILE_FORM = "SET_PROFILE_FORM";
+export const FETCH_USER_INFO = "FETCH_USER_INFO";
+export const FETCH_PUBLIC_USER_INFO = "FETCH_PUBLIC_USER_INFO";
+export const UPDATE_USER = "UPDATE_USER";

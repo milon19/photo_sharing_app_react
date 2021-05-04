@@ -1,38 +1,72 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-const Login = () => {
+const Login = (props) => {
+  const { serverErrors, message, onSubmit } = props;
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   return (
     <div className="wrap-login">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="h3 mb-3 font-weight-normal">Please login</h1>
+        <h3 className="form-message">{message}</h3>
         <input
-          type="email"
-          id="email"
+          id="email-input"
           className="form-control"
           placeholder="Email address"
-          required
-          autofocus
+          {...register("email", {
+            required: "Email is Required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
         />
+
+        {errors.email && (
+          <ul className="error-message">{errors.email.message}</ul>
+        )}
+
         <input
           type="password"
-          id="password"
+          id="password-input"
           className="form-control"
           placeholder="Password"
-          required
+          {...register("password", {
+            required: "You must specify a password",
+          })}
         />
+        {errors.password && (
+          <ul className="error-message">{errors.password.message}</ul>
+        )}
+
         <div className="checkbox mb-3 mt-3">
           <label>
-            <input type="checkbox" value="remember-me" /> Remember me
+            <input
+              type="checkbox"
+              name="rememberMe"
+              id="remember-input"
+              {...register("rememberMe", { required: false })}
+            />{" "}
+            Remember me
           </label>
         </div>
         <button className="btn btn-lg btn-primary btn-block" type="submit">
           Login
         </button>
-        <div>
+        <div
+          style={{
+            display: serverErrors?.length > 0 ? "block" : "none",
+          }}
+        >
           <ul className="error-message">
-            <li>Something wrong.</li>
-            <li>Something wrong.</li>
+            {serverErrors?.map((err, index) => (
+              <li key={index}>{err}</li>
+            ))}
           </ul>
         </div>
         <div className="button-container">
