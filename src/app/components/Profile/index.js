@@ -1,21 +1,31 @@
-import React from "react";
-import "./style.css";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-const Profile = () => {
+import "./style.css";
+import AboutTab from "./Tabs/about";
+import AlbumTab from "./Tabs/album";
+import { BACKEND_URL } from "../../settings/config";
+
+const Profile = ({ user, publicProfile }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!user?.profile?.profile_setup) {
+      history.push("/profile/setup/");
+    }
+  }, [user, history]);
+
   return (
     <div className="emp-profile">
       <div className="row">
         <div className="col-md-4">
           <div className="profile-img">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-              alt=""
-            />
+            <img src={`${BACKEND_URL}${user?.profile?.profile_pic}`} alt="" />
           </div>
         </div>
         <div className="col-md-6">
           <div className="profile-head">
-            <h1>Kshiti Ghelani</h1>
+            <h1>Welcome to {user.profile?.name}'s profile</h1>
             <ul className="nav nav-tabs" id="myTab" role="tablist">
               <li className="nav-item">
                 <a
@@ -40,125 +50,32 @@ const Profile = () => {
                   aria-controls="profile"
                   aria-selected="false"
                 >
-                  Timeline
+                  {publicProfile ? "Albums" : "My Albums"}
                 </a>
               </li>
             </ul>
-            <div className="col-md-8">
-              <div className="tab-content profile-tab" id="myTabContent">
-                <div
-                  className="tab-pane fade show active"
-                  id="home"
-                  role="tabpanel"
-                  aria-labelledby="home-tab"
-                >
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>User Id</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Kshiti123</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Name</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Kshiti Ghelani</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Email</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>kshitighelani@gmail.com</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Phone</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>123 456 7890</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Profession</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Web Developer and Designer</p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="profile"
-                  role="tabpanel"
-                  aria-labelledby="profile-tab"
-                >
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Experience</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Expert</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Hourly Rate</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>10$/hr</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Total Projects</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>230</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>English Level</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>Expert</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Availability</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p>6 months</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <label>Your Bio</label>
-                      <br />
-                      <p>Your detail description</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <div className="col-12">
+            <div className="tab-content profile-tab" id="myTabContent">
+              <AboutTab user={user} />
+              <AlbumTab user={user} />
             </div>
           </div>
         </div>
-        <div className="col-md-2">
-          <input
-            type="submit"
-            className="profile-edit-btn"
-            name="btnAddMore"
-            value="Edit Profile"
-          />
-        </div>
+
+        {!publicProfile && (
+          <div className="col-md-2">
+            <button
+              type="submit"
+              className="profile-edit-btn"
+              name="editprofile"
+              value="Edit Profile"
+              onClick={() => history.push("/profile/setup/")}
+            >
+              Edit Profile
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

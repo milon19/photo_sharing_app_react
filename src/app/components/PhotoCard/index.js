@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Card = () => {
+const Card = ({ cardInRow }) => {
+  const style = ["col-12", `col-lg-${cardInRow}`];
   return (
-    <div className="col-12 col-lg-3">
+    <div className={style.join(" ")}>
       <div className="single-post-area">
         <p className="post-thumbnail">
-          <img src="01.jpeg" className="card-image" alt="01.jpeg" />
+          <img src="/01.jpeg" className="card-image" alt="/01.jpeg" />
         </p>
 
         <p className="btn post-catagory">Photography</p>

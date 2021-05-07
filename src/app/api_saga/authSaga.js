@@ -1,6 +1,6 @@
 import { put, call, takeLatest, select } from "redux-saga/effects";
 
-import { SUBMIT_AUTH } from "../_redux/constants";
+import { SUBMIT_AUTH, FETCH_USER_INFO, UPDATE_USER } from "../_redux/constants";
 import request from "../utils/requests";
 import auth from "../settings/auth";
 import allActions from "../_redux/actions";
@@ -48,14 +48,14 @@ function* submitAuthForm({ payload }) {
     if (payload.formType === "loginForm") {
       auth.setToken(response.access, payload.rememberMe);
 
-      // const profile_url = `users/profile`;
-      // const options = {
-      //   method: "GET",
-      // };
-      // const user_response = yield call(request, profile_url, options);
-      // yield put(allActions.authActions.setUser(user_response));
+      const profile_url = `/profiles/`;
+      const options = {
+        method: "GET",
+      };
+      const user_response = yield call(request, profile_url, options);
+      yield put(allActions.authActions.setUser(user_response));
       yield put(allActions.authActions.redirectUser(true));
-      // auth.setUserInfo(user_response, body.rememberMe);
+      auth.setUserInfo(user_response, body.rememberMe);
     }
     if (payload.formType === "registerForm") {
       yield put(
@@ -68,6 +68,42 @@ function* submitAuthForm({ payload }) {
   }
 }
 
+function* getUserInfo() {
+  const profile_url = `/profiles`;
+  const options = {
+    method: "GET",
+  };
+  const response = yield call(request, profile_url, options);
+  if (response.status === 403) {
+    yield put(allActions.authActions.logoutUser());
+    yield put(allActions.authActions.redirectUser(`/auth/login`));
+  } else {
+    auth.clearUserInfo();
+    auth.setUserInfo(response, true);
+    yield put(allActions.authActions.setUser(response));
+    yield put(allActions.authActions.setProfileForm(response.profile));
+  }
+}
+
+function* profileUpdate({ payload }) {
+  const user = yield select((state) => state.authReducer.user);
+  const request_url = `/profiles/${user.profile.id}/`;
+  let options;
+
+  options = {
+    method: "PATCH",
+    data: payload,
+    headers: { "Content-Type": "multipart/form-data" },
+  };
+
+  yield call(request, request_url, options);
+
+  yield put(allActions.authActions.fetchUserInfo());
+  yield put(allActions.authActions.redirectUser(true));
+}
+
 export function* authWatcher() {
   yield takeLatest(SUBMIT_AUTH, submitAuthForm);
+  yield takeLatest(FETCH_USER_INFO, getUserInfo);
+  yield takeLatest(UPDATE_USER, profileUpdate);
 }

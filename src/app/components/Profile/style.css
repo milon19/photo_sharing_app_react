@@ -8,6 +8,8 @@
 .profile-img img {
   width: 70%;
   height: 100%;
+  max-width: 400px;
+  object-fit: cover;
 }
 
 .profile-head h5 {
@@ -21,6 +23,12 @@
   padding: 2%;
   font-weight: 600;
   color: #6c757d;
+  cursor: pointer;
+}
+
+.profile-edit-btn:hover {
+  color: #6c757d;
+  background-color: wheat;
   cursor: pointer;
 }
 

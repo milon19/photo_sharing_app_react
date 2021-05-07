@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <Layout>
       <SubHeader />
-      <CardContainer />
+      <CardContainer cardInRow={4} />
     </Layout>
   );
 };

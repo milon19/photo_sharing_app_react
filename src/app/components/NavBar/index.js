@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import auth from "../../settings/auth";
@@ -7,6 +7,7 @@ import allActions from "../../_redux/actions";
 
 const NavBar = ({ user, header }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogout = () => {
     dispatch(allActions.authActions.logoutUser());
@@ -33,7 +34,7 @@ const NavBar = ({ user, header }) => {
         <div className="collapse navbar-collapse" id="toggleData">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <Link className="nav-link" to={"#"}>
+              <Link className="nav-link" to={"/"}>
                 Home <span className="sr-only">(current)</span>
               </Link>
             </li>
@@ -62,7 +63,10 @@ const NavBar = ({ user, header }) => {
             ) : (
               <>
                 <li class="nav-item text-nowrap">
-                  <Link className="nav-link" to={"/profile/"}>
+                  <Link
+                    className="nav-link"
+                    onClick={() => history.push("/profile/")}
+                  >
                     Profile
                   </Link>
                 </li>
