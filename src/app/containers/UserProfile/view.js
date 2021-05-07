@@ -61,8 +61,8 @@ const UserProfile = (props) => {
     if (redirect) {
       props.history.push("/profile/");
       dispatch(allActions.authActions.redirectUser(false));
-      // eslint-disable-next-line
     }
+    // eslint-disable-next-line
   }, [redirect]);
 
   return <Layout>{profileComponent}</Layout>;
