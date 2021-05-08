@@ -17,3 +17,6 @@ export const SET_PROFILE_FORM = "SET_PROFILE_FORM";
 export const FETCH_USER_INFO = "FETCH_USER_INFO";
 export const FETCH_PUBLIC_USER_INFO = "FETCH_PUBLIC_USER_INFO";
 export const UPDATE_USER = "UPDATE_USER";
+
+export const FETCH_MY_ALBUM = "FETCH_MY_ALBUM";
+export const SET_MY_ALBUM = "SET_MY_ALBUM";
