@@ -2,7 +2,7 @@ import React from "react";
 
 import CardContainer from "../../CardContainer";
 
-const AlbumTab = ({ user }) => {
+const AlbumTab = ({ user, publicAlbum }) => {
   return (
     <div
       className="tab-pane fade"
@@ -10,7 +10,11 @@ const AlbumTab = ({ user }) => {
       role="tabpanel"
       aria-labelledby="profile-tab"
     >
-      <CardContainer cardInRow={6} albums={user.albums} />
+      <CardContainer
+        cardInRow={6}
+        albums={user.albums}
+        publicAlbum={publicAlbum}
+      />
     </div>
   );
 };

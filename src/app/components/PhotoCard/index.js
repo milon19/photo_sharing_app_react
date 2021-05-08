@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BACKEND_URL } from "../../settings/config";
 
-const Card = ({ cardInRow, album }) => {
+const Card = ({ cardInRow, album, publicAlbum }) => {
+  console.log("🚀 ~ file: index.js ~ line 6 ~ Card ~ album", album);
   const style = ["col-12", `col-lg-${cardInRow}`];
   return (
     <div className={style.join(" ")}>
@@ -15,10 +16,16 @@ const Card = ({ cardInRow, album }) => {
           />
         </p>
 
-        <p className="post-catagory">
-          {album.is_private ? "Private" : "Public"}
-        </p>
-        <p className="post-edit">Edit</p>
+        {!publicAlbum ? (
+          <>
+            <p className="post-catagory">
+              {album.is_private ? "Private" : "Public"}
+            </p>{" "}
+            <p className="post-edit">Edit</p>
+          </>
+        ) : (
+          <p className="post-author">Author: {album.author}</p>
+        )}
 
         <div className="post-content">
           <div className="post-meta">

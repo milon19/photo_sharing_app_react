@@ -58,7 +58,7 @@ const Profile = ({ user, publicProfile }) => {
           <div className="col-12">
             <div className="tab-content profile-tab" id="myTabContent">
               <AboutTab user={user} />
-              <AlbumTab user={user} />
+              <AlbumTab user={user} publicAlbum={true} />
             </div>
           </div>
         </div>
