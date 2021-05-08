@@ -66,13 +66,19 @@ const Profile = ({ user, publicProfile }) => {
         {!publicProfile && (
           <div className="col-md-2">
             <button
-              type="submit"
               className="profile-edit-btn"
               name="editprofile"
               value="Edit Profile"
               onClick={() => history.push("/profile/setup/")}
             >
               Edit Profile
+            </button>
+            <button
+              className="profile-edit-btn mt-2"
+              name="create-album"
+              onClick={() => history.push("/profile/setup/")}
+            >
+              Create Album
             </button>
           </div>
         )}
