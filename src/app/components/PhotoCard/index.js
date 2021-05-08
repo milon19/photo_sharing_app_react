@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { BACKEND_URL } from "../../settings/config";
 
 const Card = ({ cardInRow, album, publicAlbum }) => {
-  console.log("🚀 ~ file: index.js ~ line 6 ~ Card ~ album", album);
   const style = ["col-12", `col-lg-${cardInRow}`];
   return (
     <div className={style.join(" ")}>
@@ -32,7 +31,10 @@ const Card = ({ cardInRow, album, publicAlbum }) => {
             <span href="#">{album.created_at}</span>
             <span href="#">{album.photos.length} Photos</span>
           </div>
-          <Link to={`/albums/${album.id}`} className="post-title">
+          <Link
+            to={publicAlbum ? `/albums/${album.id}` : `/my-albums/${album.id}`}
+            className="post-title"
+          >
             {album.title}
           </Link>
         </div>

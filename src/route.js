@@ -6,6 +6,7 @@ import Home from "./app/containers/Home";
 import Auth from "./app/containers/Auth";
 import UserProfile from "./app/containers/UserProfile";
 import AlbumDetails from "./app/containers/Albums";
+import MyAlbumDetails from "./app/containers/MyAlbums";
 
 const RouteApp = () => {
   return (
@@ -14,6 +15,7 @@ const RouteApp = () => {
         <Route path="/auth/:formType/:id?" component={Auth} exact />
         <Route path="/" component={Home} exact />
         <Route path="/albums/:id" component={AlbumDetails} exact />
+        <PrivateRoute path="/my-albums/:id" component={MyAlbumDetails} exact />
         <PrivateRoute path="/profile/:type?" component={UserProfile} exact />
       </Switch>
     </Router>
