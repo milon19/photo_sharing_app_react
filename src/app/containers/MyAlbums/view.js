@@ -2,135 +2,51 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import allActions from "../../_redux/actions";
+import { BACKEND_URL } from "../../settings/config";
 
 import Layout from "../Layout/index";
 
 const MyAlbumDetails = (props) => {
   const dispatch = useDispatch();
   const album = useSelector((state) => state.albumReducer.myAlbum);
-  console.log("🚀 ~ file: view.js ~ line 11 ~ MyAlbumDetails ~ album", album);
+  const message = useSelector((state) => state.authReducer.message);
+
   const albumId = props.match.params.id;
-  console.log(
-    "🚀 ~ file: view.js ~ line 13 ~ MyAlbumDetails ~ props.match.params",
-    props.match.params
-  );
 
   useEffect(() => {
     dispatch(allActions.albumActions.fetchMyAlbum(albumId));
     // eslint-disable-next-line
-  }, []);
+  }, [albumId]);
 
   return (
     <Layout>
       <div class="container pt-2">
-        <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">
-          Thumbnail Gallery
-        </h1>
+        {message ? (
+          <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">
+            {message}
+          </h1>
+        ) : (
+          <>
+            <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">
+              {album?.title}
+            </h1>
 
-        <hr class="mt-2 mb-5" />
+            <hr class="mt-2 mb-5" />
 
-        <div class="row text-center text-lg-left">
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img class="img-fluid img-thumbnail" src="/01.jpeg" alt="" />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img class="img-fluid img-thumbnail" src="/logo512.png" alt="" />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/EUfxH-pze7s/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/M185_qYH8vg/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/sesveuG_rNo/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/AvhMzHwiE_0/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/2gYsZUmockw/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/EMSDtjVHdQ8/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/8mUEy0ABdNE/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/G9Rfc1qccH4/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/aJeH0KcFkuc/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-4 col-6">
-            <a href="#top" class="d-block mb-4 h-100">
-              <img
-                class="img-fluid img-thumbnail"
-                src="https://source.unsplash.com/p2TQ-3Bh3Oo/400x300"
-                alt=""
-              />
-            </a>
-          </div>
-        </div>
+            <div class="row text-center text-lg-left">
+              {album?.photos?.map((photo) => (
+                <div key={photo.id} class="col-lg-3 col-md-4 col-6">
+                  <a href="#top" class="d-block mb-4 h-100">
+                    <img
+                      class="img-fluid img-thumbnail"
+                      src={`${BACKEND_URL}${photo.photo}`}
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </Layout>
   );
