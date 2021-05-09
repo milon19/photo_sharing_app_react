@@ -10,6 +10,7 @@ const MyAlbumDetails = (props) => {
   const dispatch = useDispatch();
   const album = useSelector((state) => state.albumReducer.myAlbum);
   const message = useSelector((state) => state.authReducer.message);
+  const redirect = useSelector((state) => state.authReducer.redirect);
 
   const albumId = props.match.params.id;
 
@@ -17,6 +18,18 @@ const MyAlbumDetails = (props) => {
     dispatch(allActions.albumActions.fetchMyAlbum(albumId));
     // eslint-disable-next-line
   }, [albumId]);
+
+  useEffect(() => {
+    if (redirect) {
+      props.history.push("/profile/");
+      dispatch(allActions.authActions.redirectUser(false));
+    }
+    // eslint-disable-next-line
+  }, [redirect]);
+
+  const handleAlbumDelete = (id) => {
+    dispatch(allActions.albumActions.deleteAlbum(id));
+  };
 
   return (
     <Layout>
@@ -40,15 +53,15 @@ const MyAlbumDetails = (props) => {
               </button>
               <button
                 className="btn btn-sm btn-success m-1"
-                name="edit-photo"
+                name="edit-album"
                 onClick={() => props.history.push(`/edit-album/${album.id}`)}
               >
                 Edit Album
               </button>
               <button
                 className="btn btn-sm btn-danger m-1"
-                name="edit-photo"
-                onClick={() => props.history.push("/create-album/")}
+                name="delete-album"
+                onClick={() => handleAlbumDelete(album.id)}
               >
                 Delete Album
               </button>

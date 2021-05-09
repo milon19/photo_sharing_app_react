@@ -4,6 +4,7 @@ import {
   FETCH_MY_ALBUM,
   SUBMIT_ALBUM_FORM,
   SUBMIT_ALBUM_FORM_UPDATE,
+  DELETE_ALBUM,
 } from "../_redux/constants";
 import request from "../utils/requests";
 import allActions from "../_redux/actions";
@@ -60,8 +61,24 @@ function* submitAlbumFormUpdate({ payload, id }) {
   yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}`));
 }
 
+function* deleteAlbum({ id }) {
+  const url = `/albums/${id}/`;
+  const options = {
+    method: "DELETE",
+  };
+  const response = yield call(request, url, options);
+
+  if (response.status === 403) {
+    yield put(allActions.authActions.logoutUser());
+    yield put(allActions.authActions.redirectUser(`/auth/login`));
+  }
+  yield put(allActions.authActions.fetchUserInfo());
+  yield put(allActions.authActions.redirectUser(true));
+}
+
 export function* albumWatcher() {
   yield takeLatest(FETCH_MY_ALBUM, fetchMyAlbum);
   yield takeLatest(SUBMIT_ALBUM_FORM, submitAlbumForm);
   yield takeLatest(SUBMIT_ALBUM_FORM_UPDATE, submitAlbumFormUpdate);
+  yield takeLatest(DELETE_ALBUM, deleteAlbum);
 }
