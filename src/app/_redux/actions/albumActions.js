@@ -5,6 +5,10 @@ import {
   SUBMIT_ALBUM_FORM_UPDATE,
   DELETE_ALBUM,
   UPLOAD_PHOTO,
+  FETCH_HOME_PAGE_DATA,
+  SET_HOME_PAGE_DATA,
+  FETCH_ALBUM_DETAILS,
+  SET_ALBUM_DETAILS,
 } from "../constants";
 
 export function setMyAlbum(payload) {
@@ -48,5 +52,32 @@ export function uploadPhoto(payload, id) {
     type: UPLOAD_PHOTO,
     payload,
     id,
+  };
+}
+
+export function fetchHomePageData() {
+  return {
+    type: FETCH_HOME_PAGE_DATA,
+  };
+}
+
+export function setHomePageData(payload) {
+  return {
+    type: SET_HOME_PAGE_DATA,
+    payload,
+  };
+}
+
+export function fetchAlbumDetails(id) {
+  return {
+    type: FETCH_ALBUM_DETAILS,
+    id,
+  };
+}
+
+export function setAlbumDetails(payload) {
+  return {
+    type: SET_ALBUM_DETAILS,
+    payload,
   };
 }

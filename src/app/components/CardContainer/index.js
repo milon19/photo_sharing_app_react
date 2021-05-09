@@ -3,6 +3,7 @@ import React from "react";
 import Card from "../PhotoCard";
 
 const CardContainer = ({ cardInRow, albums, publicAlbum }) => {
+  console.log("🚀 ~ file: index.js ~ line 6 ~ CardContainer ~ albums", albums);
   return (
     <div className="row row-cols-1 row-cols-md-3 mx-5">
       {albums?.length > 0
