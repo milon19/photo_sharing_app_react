@@ -30,7 +30,29 @@ const MyAlbumDetails = (props) => {
             <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">
               {album?.title}
             </h1>
-
+            <div>
+              <button
+                className="btn btn-sm btn-primary m-1"
+                name="uplaod-photo"
+                onClick={() => props.history.push("/create-album/")}
+              >
+                Upload a Photo
+              </button>
+              <button
+                className="btn btn-sm btn-success m-1"
+                name="edit-photo"
+                onClick={() => props.history.push("/create-album/")}
+              >
+                Edit Album
+              </button>
+              <button
+                className="btn btn-sm btn-danger m-1"
+                name="edit-photo"
+                onClick={() => props.history.push("/create-album/")}
+              >
+                Delete Album
+              </button>
+            </div>
             <hr class="mt-2 mb-5" />
 
             <div class="row text-center text-lg-left">
