@@ -6,12 +6,20 @@ import allActions from "../../_redux/actions";
 import Layout from "../Layout/index";
 import AlbumForm from "../../components/forms/AlbumForm";
 
-const CreateAlbum = (props) => {
+const EditAlbum = (props) => {
   const [coverPicture, setCoverPicture] = useState("");
   const redirect = useSelector((state) => state.authReducer.redirect);
+  const album = useSelector((state) => state.albumReducer.myAlbum);
   const dispatch = useDispatch();
 
-  const submitCreateAlbumForm = (e) => {
+  const albumId = props.match.params.id;
+
+  useEffect(() => {
+    dispatch(allActions.albumActions.fetchMyAlbum(albumId));
+    // eslint-disable-next-line
+  }, [albumId]);
+
+  const submitEditAlbumForm = (e) => {
     const formData = new FormData();
     if (coverPicture) {
       formData.append("cover", coverPicture);
@@ -19,7 +27,7 @@ const CreateAlbum = (props) => {
 
     formData.append("title", e.title);
     formData.append("is_private", e.is_private);
-    dispatch(allActions.albumActions.submitAlbumForm(formData));
+    dispatch(allActions.albumActions.submitAlbumFormUpdate(formData, albumId));
     setCoverPicture("");
   };
 
@@ -38,8 +46,9 @@ const CreateAlbum = (props) => {
   return (
     <Layout>
       <AlbumForm
-        edit={false}
-        onSubmit={submitCreateAlbumForm}
+        {...album}
+        edit={true}
+        onSubmit={submitEditAlbumForm}
         handleFileChange={handleFileChange}
         errors={[]}
       />
@@ -47,4 +56,4 @@ const CreateAlbum = (props) => {
   );
 };
 
-export default CreateAlbum;
+export default EditAlbum;

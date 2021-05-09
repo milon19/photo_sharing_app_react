@@ -41,7 +41,7 @@ const MyAlbumDetails = (props) => {
               <button
                 className="btn btn-sm btn-success m-1"
                 name="edit-photo"
-                onClick={() => props.history.push("/create-album/")}
+                onClick={() => props.history.push(`/edit-album/${album.id}`)}
               >
                 Edit Album
               </button>

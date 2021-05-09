@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { BACKEND_URL } from "../../settings/config";
 
 const Card = ({ cardInRow, album, publicAlbum }) => {
   const style = ["col-12", `col-lg-${cardInRow}`];
+  const history = useHistory();
   return (
     <div className={style.join(" ")}>
       <div className="single-post-area">
@@ -20,7 +21,12 @@ const Card = ({ cardInRow, album, publicAlbum }) => {
             <p className="post-catagory">
               {album.is_private ? "Private" : "Public"}
             </p>{" "}
-            <p className="post-edit">Edit</p>
+            <p
+              className="post-edit"
+              onClick={() => history.push(`/edit-album/${album.id}/`)}
+            >
+              Edit
+            </p>
           </>
         ) : (
           <p className="post-author">Author: {album.author}</p>

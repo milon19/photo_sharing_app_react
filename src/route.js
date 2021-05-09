@@ -8,6 +8,7 @@ import UserProfile from "./app/containers/UserProfile";
 import AlbumDetails from "./app/containers/Albums";
 import MyAlbumDetails from "./app/containers/MyAlbums";
 import CreateAlbum from "./app/containers/CreateAlbum";
+import EditAlbum from "./app/containers/EditAlbum";
 
 const RouteApp = () => {
   return (
@@ -19,6 +20,7 @@ const RouteApp = () => {
         <PrivateRoute path="/my-albums/:id" component={MyAlbumDetails} exact />
         <PrivateRoute path="/profile/:type?" component={UserProfile} exact />
         <PrivateRoute path="/create-album" component={CreateAlbum} exact />
+        <PrivateRoute path="/edit-album/:id" component={EditAlbum} exact />
       </Switch>
     </Router>
   );

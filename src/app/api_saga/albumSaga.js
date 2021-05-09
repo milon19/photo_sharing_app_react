@@ -1,6 +1,10 @@
 import { put, call, takeLatest } from "redux-saga/effects";
 
-import { FETCH_MY_ALBUM, SUBMIT_ALBUM_FORM } from "../_redux/constants";
+import {
+  FETCH_MY_ALBUM,
+  SUBMIT_ALBUM_FORM,
+  SUBMIT_ALBUM_FORM_UPDATE,
+} from "../_redux/constants";
 import request from "../utils/requests";
 import allActions from "../_redux/actions";
 
@@ -35,11 +39,29 @@ function* submitAlbumForm({ payload }) {
     yield put(allActions.authActions.logoutUser());
     yield put(allActions.authActions.redirectUser(`/auth/login`));
   }
-  yield put(allActions.albumActions.fetchMyAlbum());
+  yield put(allActions.authActions.fetchUserInfo());
+  yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}`));
+}
+
+function* submitAlbumFormUpdate({ payload, id }) {
+  const url = `/albums/${id}/`;
+  const options = {
+    method: "PATCH",
+    data: payload,
+    headers: { "Content-Type": "multipart/form-data" },
+  };
+  const response = yield call(request, url, options);
+
+  if (response.status === 403) {
+    yield put(allActions.authActions.logoutUser());
+    yield put(allActions.authActions.redirectUser(`/auth/login`));
+  }
+  yield put(allActions.authActions.fetchUserInfo());
   yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}`));
 }
 
 export function* albumWatcher() {
   yield takeLatest(FETCH_MY_ALBUM, fetchMyAlbum);
   yield takeLatest(SUBMIT_ALBUM_FORM, submitAlbumForm);
+  yield takeLatest(SUBMIT_ALBUM_FORM_UPDATE, submitAlbumFormUpdate);
 }

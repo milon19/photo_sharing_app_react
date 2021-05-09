@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import { useForm } from "react-hook-form";
 
@@ -6,8 +6,15 @@ import * as S from "./styles";
 import { BACKEND_URL } from "../../settings/config";
 
 function AlbumForm(props) {
-  const { onSubmit, handleFileChange } = props;
-  const { handleSubmit, register } = useForm();
+  const { onSubmit, handleFileChange, edit } = props;
+  const { handleSubmit, register, setValue } = useForm();
+
+  useEffect(() => {
+    if (edit && props?.is_private) {
+      setValue("is_private", props?.is_private);
+    }
+    // eslint-disable-next-line
+  }, [props?.is_private]);
 
   const albumCoverPreview = useRef();
 
@@ -44,7 +51,7 @@ function AlbumForm(props) {
                   type="text"
                   name="title"
                   id="name-input"
-                  defaultValue={props?.name}
+                  defaultValue={props?.title}
                   {...register("title", { required: true })}
                 />
               </S.InputGroupComplete>
@@ -82,7 +89,7 @@ function AlbumForm(props) {
               </S.DropzoneContainer>
               <S.ImagePreviewContainer>
                 <img
-                  src={`${BACKEND_URL}${props.profile_pic}`}
+                  src={`${BACKEND_URL}${props.cover}`}
                   alt=""
                   ref={albumCoverPreview}
                 />
@@ -99,7 +106,7 @@ function AlbumForm(props) {
               ))}
             </S.ErrorContainer>
             <S.ButtonContainer>
-              <button type="submit">Create</button>
+              <button type="submit">{edit ? "Edit" : "Create"}</button>
             </S.ButtonContainer>
           </S.FormContainer>
         </S.FormElement>
