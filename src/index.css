@@ -74,16 +74,47 @@ code {
   color: #ffffff;
   background-color: #fc6060;
   top: 15px;
+  right: 80px;
+  z-index: 20;
+  font-weight: 500;
+}
+
+.single-post-area .post-edit {
+  position: absolute;
+  padding: 2px 15px;
+  border-radius: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #02a8d1;
+  top: 15px;
   right: 15px;
   z-index: 20;
   font-weight: 500;
 }
-.single-post-area .post-catagory:hover,
-.single-post-area .post-catagory:focus {
+
+.single-post-area .post-edit:hover,
+.single-post-area .post-edit:focus {
+  cursor: pointer;
   font-weight: 500;
   background-color: #000000;
   color: #ffffff;
 }
+
+.single-post-area .post-author {
+  position: absolute;
+  padding: 2px 15px;
+  border-radius: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #02a8d1;
+  top: 15px;
+  right: 15px;
+  z-index: 20;
+  font-weight: 500;
+}
+
 .single-post-area .post-content {
   position: absolute;
   left: 30px;
