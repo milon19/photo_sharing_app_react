@@ -76,7 +76,7 @@ const Profile = ({ user, publicProfile }) => {
             <button
               className="profile-edit-btn mt-2"
               name="create-album"
-              onClick={() => history.push("/profile/setup/")}
+              onClick={() => history.push("/create-album/")}
             >
               Create Album
             </button>

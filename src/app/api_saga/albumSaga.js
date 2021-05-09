@@ -1,8 +1,7 @@
-import { put, call, takeLatest, select } from "redux-saga/effects";
+import { put, call, takeLatest } from "redux-saga/effects";
 
 import { FETCH_MY_ALBUM } from "../_redux/constants";
 import request from "../utils/requests";
-import auth from "../settings/auth";
 import allActions from "../_redux/actions";
 
 function* fetchMyAlbum({ id }) {

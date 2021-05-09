@@ -40,6 +40,7 @@ const MyAlbumDetails = (props) => {
                     <img
                       class="img-fluid img-thumbnail"
                       src={`${BACKEND_URL}${photo.photo}`}
+                      alt="album"
                     />
                   </a>
                 </div>
