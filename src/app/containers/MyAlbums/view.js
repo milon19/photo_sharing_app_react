@@ -47,7 +47,7 @@ const MyAlbumDetails = (props) => {
               <button
                 className="btn btn-sm btn-primary m-1"
                 name="uplaod-photo"
-                onClick={() => props.history.push("/create-album/")}
+                onClick={() => props.history.push(`/upload-photo/${album.id}`)}
               >
                 Upload a Photo
               </button>

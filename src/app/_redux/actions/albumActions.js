@@ -4,6 +4,7 @@ import {
   SUBMIT_ALBUM_FORM,
   SUBMIT_ALBUM_FORM_UPDATE,
   DELETE_ALBUM,
+  UPLOAD_PHOTO,
 } from "../constants";
 
 export function setMyAlbum(payload) {
@@ -38,6 +39,14 @@ export function submitAlbumFormUpdate(payload, id) {
 export function deleteAlbum(id) {
   return {
     type: DELETE_ALBUM,
+    id,
+  };
+}
+
+export function uploadPhoto(payload, id) {
+  return {
+    type: UPLOAD_PHOTO,
+    payload,
     id,
   };
 }

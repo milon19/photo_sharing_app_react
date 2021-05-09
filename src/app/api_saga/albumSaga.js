@@ -5,6 +5,7 @@ import {
   SUBMIT_ALBUM_FORM,
   SUBMIT_ALBUM_FORM_UPDATE,
   DELETE_ALBUM,
+  UPLOAD_PHOTO,
 } from "../_redux/constants";
 import request from "../utils/requests";
 import allActions from "../_redux/actions";
@@ -76,9 +77,27 @@ function* deleteAlbum({ id }) {
   yield put(allActions.authActions.redirectUser(true));
 }
 
+function* uploadPhoto({ payload, id }) {
+  const url = `/upload-photo/${id}`;
+  const options = {
+    method: "POST",
+    data: payload,
+    headers: { "Content-Type": "multipart/form-data" },
+  };
+  const response = yield call(request, url, options);
+
+  if (response.status === 403) {
+    yield put(allActions.authActions.logoutUser());
+    yield put(allActions.authActions.redirectUser(`/auth/login`));
+  }
+  yield put(allActions.authActions.fetchUserInfo());
+  yield put(allActions.authActions.redirectUser(`/my-albums/${id}`));
+}
+
 export function* albumWatcher() {
   yield takeLatest(FETCH_MY_ALBUM, fetchMyAlbum);
   yield takeLatest(SUBMIT_ALBUM_FORM, submitAlbumForm);
   yield takeLatest(SUBMIT_ALBUM_FORM_UPDATE, submitAlbumFormUpdate);
   yield takeLatest(DELETE_ALBUM, deleteAlbum);
+  yield takeLatest(UPLOAD_PHOTO, uploadPhoto);
 }
