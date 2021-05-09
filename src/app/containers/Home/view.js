@@ -10,7 +10,6 @@ import CardContainer from "../../components/CardContainer";
 const Home = () => {
   const dispatch = useDispatch();
   const albums = useSelector((state) => state.albumReducer.publicAlbum);
-  console.log("🚀 ~ file: view.js ~ line 13 ~ Home ~ albums", albums);
 
   useEffect(() => {
     dispatch(allActions.albumActions.fetchHomePageData());

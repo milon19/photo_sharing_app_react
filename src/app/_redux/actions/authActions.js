@@ -45,7 +45,6 @@ export function resetAuthForm(payload) {
 }
 
 export function setFormErrors(payload) {
-  console.log(payload);
   return {
     type: SET_FORM_ERRORS,
     payload,
