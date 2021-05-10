@@ -13,14 +13,14 @@ import request from "../utils/requests";
 import allActions from "../_redux/actions";
 
 function* fetchMyAlbum({ id }) {
-  const url = `/my-albums/${id}`;
+  const url = `/my-albums/${id}/`;
   const options = {
     method: "GET",
   };
   const response = yield call(request, url, options);
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   } else if (response.status === 401) {
     yield put(
       allActions.authActions.setMessage("You can't not see this Album")
@@ -41,10 +41,10 @@ function* submitAlbumForm({ payload }) {
 
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   }
   yield put(allActions.authActions.fetchUserInfo());
-  yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}`));
+  yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}/`));
 }
 
 function* submitAlbumFormUpdate({ payload, id }) {
@@ -58,10 +58,10 @@ function* submitAlbumFormUpdate({ payload, id }) {
 
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   }
   yield put(allActions.authActions.fetchUserInfo());
-  yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}`));
+  yield put(allActions.authActions.redirectUser(`/my-albums/${response.id}/`));
 }
 
 function* deleteAlbum({ id }) {
@@ -73,14 +73,14 @@ function* deleteAlbum({ id }) {
 
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   }
   yield put(allActions.authActions.fetchUserInfo());
   yield put(allActions.authActions.redirectUser(true));
 }
 
 function* uploadPhoto({ payload, id }) {
-  const url = `/upload-photo/${id}`;
+  const url = `/upload-photo/${id}/`;
   const options = {
     method: "POST",
     data: payload,
@@ -90,14 +90,14 @@ function* uploadPhoto({ payload, id }) {
 
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   }
   yield put(allActions.authActions.fetchUserInfo());
-  yield put(allActions.authActions.redirectUser(`/my-albums/${id}`));
+  yield put(allActions.authActions.redirectUser(`/my-albums/${id}/`));
 }
 
 function* getHomePageData() {
-  const url = `/albums`;
+  const url = `/albums/`;
   const options = {
     method: "GET",
   };
@@ -105,20 +105,20 @@ function* getHomePageData() {
 
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   }
   yield put(allActions.albumActions.setHomePageData(response));
 }
 
 function* fetchAlbumDetails({ id }) {
-  const url = `/albums/${id}`;
+  const url = `/albums/${id}/`;
   const options = {
     method: "GET",
   };
   const response = yield call(request, url, options);
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   } else if (response.status === 401) {
     yield put(
       allActions.authActions.setMessage("You can't not see this Album")

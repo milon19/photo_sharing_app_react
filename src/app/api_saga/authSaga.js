@@ -69,14 +69,14 @@ function* submitAuthForm({ payload }) {
 }
 
 function* getUserInfo() {
-  const profile_url = `/profiles`;
+  const profile_url = `/profiles/`;
   const options = {
     method: "GET",
   };
   const response = yield call(request, profile_url, options);
   if (response.status === 403) {
     yield put(allActions.authActions.logoutUser());
-    yield put(allActions.authActions.redirectUser(`/auth/login`));
+    yield put(allActions.authActions.redirectUser(`/auth/login/`));
   } else {
     auth.clearUserInfo();
     auth.setUserInfo(response, true);
