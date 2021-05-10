@@ -1,4 +1,4 @@
-let API_URL = "http://localhost:8000/api";
-let BACKEND_URL = "http://127.0.0.1:8000";
+let API_URL = "https://photo-sharing-app-rest.herokuapp.com/api";
+let BACKEND_URL = "https://photo-sharing-app-rest.herokuapp.com";
 
 export { API_URL, BACKEND_URL };

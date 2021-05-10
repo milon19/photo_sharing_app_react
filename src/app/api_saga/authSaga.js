@@ -100,6 +100,7 @@ function* profileUpdate({ payload }) {
 
   yield put(allActions.authActions.fetchUserInfo());
   yield put(allActions.authActions.redirectUser(true));
+  yield put(allActions.authActions.setMessage(""));
 }
 
 export function* authWatcher() {
