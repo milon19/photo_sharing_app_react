@@ -12,7 +12,7 @@ const Card = ({ cardInRow, album, publicAlbum }) => {
           <img
             src={`${BACKEND_URL}${album.cover}`}
             className="card-image"
-            alt="/01.jpeg"
+            alt="/images/01.jpeg"
           />
         </p>
 

@@ -79,7 +79,11 @@ const Login = (props) => {
           </p>
         </div>
       </form>
-      <img src="/images/login.png" className="form-image" alt="01.jpeg" />
+      <img
+        src="/images/login.png"
+        className="form-image"
+        alt="/images/01.jpeg"
+      />
     </div>
   );
 };
